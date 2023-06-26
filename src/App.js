@@ -3,6 +3,11 @@ import Quiz from "./components/Quiz";
 import Categories from "./components/Categories";
 function App() {
   const [categoryUrl, setCategoryUrl] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  function handleCategory(name) {
+    setSelectedCategory(name);
+  }
 
   function handleCategoryUrl(id) {
     if (id === null) {
@@ -21,11 +26,16 @@ function App() {
   return (
     <div className="App">
       {categoryUrl ? (
-        <Quiz categoryUrl={categoryUrl} setCategoryUrl={setCategoryUrl} />
+        <Quiz
+          categoryUrl={categoryUrl}
+          setCategoryUrl={setCategoryUrl}
+          selectedCategory={selectedCategory}
+        />
       ) : (
         <Categories
           onCategoryUrl={handleCategoryUrl}
           categoryUrl={categoryUrl}
+          onCategory={handleCategory}
         />
       )}
     </div>

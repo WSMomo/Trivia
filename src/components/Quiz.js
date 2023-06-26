@@ -3,7 +3,11 @@ import Answers from "./Answers";
 import he from "he"; // trasforma simboli in html leggibile
 import { useFetch } from "../hooks/useFetch";
 
-export default function Quiz({ categoryUrl, setCategoryUrl }) {
+export default function Quiz({
+  categoryUrl,
+  setCategoryUrl,
+  selectedCategory,
+}) {
   const [userAnswer, setUserAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
@@ -54,58 +58,64 @@ export default function Quiz({ categoryUrl, setCategoryUrl }) {
   }
 
   return (
-    <div className="main">
-      {questionCounter < 9 && showAnswer && (
-        <button className="next-question-button" onClick={handleChangeQuestion}>
-          Next question
-        </button>
-      )}
-
-      {countAnswer <= 9 ? (
-        <>
-          <div className="question-number">
-            {questionCounter + 1}/{data.length}
-          </div>
-          <div>
-            {data.length > 0 ? (
-              <>
-                <div className="question">
-                  {he.decode(data[questionCounter].question)}
-                </div>
-                <Answers
-                  onAnswerClick={handleAnswerClick}
-                  data={data}
-                  questionCounter={questionCounter}
-                  showAnswer={showAnswer}
-                />
-              </>
-            ) : (
-              <p>Loading question...</p>
-            )}
-          </div>
-
-          <div className={`result ${showAnswer ? "" : "hide"}`}>
-            <p>Your answer is: {userAnswer}.</p>
-            <p>
-              The correct answer is {correctAnswer}.{" "}
-              {isCorrectAnswer ? "Good Job!" : ""}
-            </p>
-          </div>
-        </>
-      ) : (
-        <>
-          <div>
-            You have successfully answered {countCorrectAnswer} questions
-            correctly.
-          </div>
+    <div>
+      <h2 className="section-title">{selectedCategory || "Any"}</h2>
+      <div className="main">
+        {questionCounter < 9 && showAnswer && (
           <button
-            className="play-again-button"
-            onClick={() => setCategoryUrl(false)}
+            className="next-question-button"
+            onClick={handleChangeQuestion}
           >
-            Play again
+            Next question
           </button>
-        </>
-      )}
+        )}
+
+        {countAnswer <= 9 ? (
+          <>
+            <div className="question-number">
+              {questionCounter + 1}/{data.length}
+            </div>
+            <div>
+              {data.length > 0 ? (
+                <>
+                  <div className="question">
+                    {he.decode(data[questionCounter].question)}
+                  </div>
+                  <Answers
+                    onAnswerClick={handleAnswerClick}
+                    data={data}
+                    questionCounter={questionCounter}
+                    showAnswer={showAnswer}
+                  />
+                </>
+              ) : (
+                <p>Loading question...</p>
+              )}
+            </div>
+
+            <div className={`result ${showAnswer ? "" : "hide"}`}>
+              <p>Your answer is: {userAnswer}.</p>
+              <p>
+                The correct answer is {correctAnswer}.{" "}
+                {isCorrectAnswer ? "Good Job!" : ""}
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              You have successfully answered {countCorrectAnswer} questions
+              correctly.
+            </div>
+            <button
+              className="play-again-button"
+              onClick={() => setCategoryUrl(false)}
+            >
+              Play again
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

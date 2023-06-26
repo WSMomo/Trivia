@@ -8,13 +8,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .answers {
   display: grid;
-  grid-template-columns: repeat(2, 300px);
   gap: 1px;
+  grid-template-columns: repeat(1, 300px);
   justify-content: center;
 }
 
@@ -42,8 +41,8 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 350px;
-  width: 750px;
+  height: 500px;
+  width: 350px;
   border: 1px solid black;
 }
 
@@ -92,18 +91,43 @@
 
 .categories {
   display: grid;
-  grid-template-columns: repeat(3, 200px);
-  gap: 1px;
+  grid-template-columns: repeat(2, 150px);
+  gap: 4px;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
+.section-title {
+  text-align: center;
+  padding: 1rem;
+}
 .categories li {
   border: 1px solid black;
   cursor: pointer;
-  height: 3rem;
+  height: 5rem;
   list-style: none;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .answers {
+    grid-template-columns: repeat(2, 300px);
+  }
+  .main {
+    height: 350px;
+    width: 750px;
+  }
+  .categories {
+    grid-template-columns: repeat(3, 200px);
+  }
+  .categories li {
+    height: 3rem;
+  }
+  #root {
+    height: 100vh;
+  }
 }
