@@ -13,7 +13,7 @@ export default function Categories({ onCategoryUrl, onCategory }) {
       <h2 className="section-title">Select the category</h2>
       {categories.length > 0 ? (
         <ul className="categories">
-          <li onClick={() => onCategoryUrl(null)}>Any</li>
+          <li onClick={() => onCategoryUrl(null)}>Random Category</li>
           {categories.map((category) => {
             return (
               <li

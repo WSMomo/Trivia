@@ -59,7 +59,7 @@ export default function Quiz({
 
   return (
     <div>
-      <h2 className="section-title">{selectedCategory || "Any"}</h2>
+      <h2 className="section-title">{selectedCategory || "Random Category"}</h2>
       <div className="main">
         {questionCounter < 9 && showAnswer && (
           <button
@@ -93,7 +93,15 @@ export default function Quiz({
               )}
             </div>
 
-            <div className={`result ${showAnswer ? "" : "hide"}`}>
+            <div
+              className={`result ${
+                !showAnswer
+                  ? "hide"
+                  : isCorrectAnswer
+                  ? "correct-answer"
+                  : "wrong-answer"
+              }`}
+            >
               <p>Your answer is: {userAnswer}.</p>
               <p>
                 The correct answer is {correctAnswer}.{" "}
