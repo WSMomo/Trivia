@@ -46,6 +46,12 @@
   visibility: hidden;
 }
 
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .main {
   display: flex;
   flex-direction: column;

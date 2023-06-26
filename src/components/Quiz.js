@@ -58,7 +58,7 @@ export default function Quiz({
   }
 
   return (
-    <div>
+    <div className="body">
       <h2 className="section-title">{selectedCategory || "Random Category"}</h2>
       <div className="main">
         {questionCounter < 9 && showAnswer && (
