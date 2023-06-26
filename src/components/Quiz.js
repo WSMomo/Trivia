@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import Answers from "./Answers";
 import he from "he"; // trasforma simboli in html leggibile
+import { useFetch } from "../hooks/useFetch";
 
-export default function Quiz() {
+export default function Quiz({ categoryUrl, setCategoryUrl }) {
   const [userAnswer, setUserAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [questionCounter, setQuestionCounter] = useState(0);
+  const [countAnswer, setCountAnswer] = useState(0);
+  const [countCorrectAnswer, setCountCorrectAnswer] = useState(0);
   const [data, setData] = useState([]);
 
   // quando l'utente clicca su una risposta setta la risposta utente e setta il showAnswer su true per visualizzarla
   function handleAnswerClick(selectedAnswer) {
+    setCountAnswer(() => countAnswer + 1);
+
     setShowAnswer(true);
     setUserAnswer(() => selectedAnswer);
   }
@@ -20,6 +25,7 @@ export default function Quiz() {
   useEffect(() => {
     function checkAnswer() {
       if (userAnswer === correctAnswer) {
+        setCountCorrectAnswer(() => countCorrectAnswer + 1);
         setIsCorrectAnswer(true);
       } else {
         setIsCorrectAnswer(false);
@@ -29,22 +35,14 @@ export default function Quiz() {
   }, [userAnswer]);
 
   // al caricamento della pagina cerca le domande e le riposte e salvale in data
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(
-        `https://opentdb.com/api.php?amount=10&type=multiple`
-      );
-      const data = await res.json();
-      setData(data.results);
-    }
-    fetchData();
-  }, []);
+  useFetch(setData, categoryUrl, "results");
 
   // aggiorna la risposta corretta al caricamento dei dati o al cambio domanda
   useEffect(() => {
     if (data.length > 0) {
       setCorrectAnswer(he.decode(data[questionCounter].correct_answer));
       console.log(data[questionCounter].question);
+      console.log(data);
     }
   }, [data, questionCounter]);
 
@@ -56,32 +54,57 @@ export default function Quiz() {
 
   return (
     <div className="main">
-      <button onClick={handleChangeQuestion}>Next question</button>
+      {questionCounter < 9 && showAnswer && (
+        <button className="next-question-button" onClick={handleChangeQuestion}>
+          Next question
+        </button>
+      )}
 
-      <div>
-        {data.length > 0 ? (
-          <>
-            <div className="question">
-              {he.decode(data[questionCounter].question)}
-            </div>
-            <Answers
-              onAnswerClick={handleAnswerClick}
-              data={data}
-              questionCounter={questionCounter}
-            />
-          </>
-        ) : (
-          <p>Loading question...</p>
-        )}
-      </div>
+      {countAnswer <= 9 ? (
+        <>
+          <div className="question-number">
+            {questionCounter + 1}/{data.length}
+          </div>
+          <div>
+            {data.length > 0 ? (
+              <>
+                <div className="question">
+                  {he.decode(data[questionCounter].question)}
+                </div>
+                <Answers
+                  onAnswerClick={handleAnswerClick}
+                  data={data}
+                  questionCounter={questionCounter}
+                  showAnswer={showAnswer}
+                />
+              </>
+            ) : (
+              <p>Loading question...</p>
+            )}
+          </div>
 
-      <div className={`result ${showAnswer ? "" : "hide"}`}>
-        <p>Your answer is: {userAnswer}.</p>
-        <p>
-          The correct answer is {he.decode(correctAnswer)}.{" "}
-          {isCorrectAnswer ? "Good Job!" : "Try again"}
-        </p>
-      </div>
+          <div className={`result ${showAnswer ? "" : "hide"}`}>
+            <p>Your answer is: {userAnswer}.</p>
+            <p>
+              The correct answer is {correctAnswer}.{" "}
+              {isCorrectAnswer ? "Good Job!" : ""}
+            </p>
+          </div>
+        </>
+      ) : (
+        <>
+          <div>
+            You have successfully answered {countCorrectAnswer} questions
+            correctly.
+          </div>
+          <button
+            className="play-again-button"
+            onClick={() => setCategoryUrl(false)}
+          >
+            Play again
+          </button>
+        </>
+      )}
     </div>
   );
 }
