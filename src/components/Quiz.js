@@ -111,7 +111,11 @@ export default function Quiz({
           </>
         ) : (
           <>
-            <div>
+            <div
+              className={`summary ${
+                countCorrectAnswer >= 6 ? "correct-answer" : "wrong-answer"
+              }`}
+            >
               You have successfully answered {countCorrectAnswer} questions
               correctly.
             </div>

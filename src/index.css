@@ -52,7 +52,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 500px;
+  min-height: 500px;
   width: 350px;
 }
 
@@ -79,7 +79,7 @@
 .question {
   text-align: center;
   max-width: 600px;
-  margin-top: 3rem;
+  margin-top: 8rem;
   margin-bottom: 2rem;
   font-size: 1.5rem;
   color: var(--button-color);
@@ -96,6 +96,7 @@
   padding: 1rem;
   margin-top: 1rem;
   cursor: pointer;
+  border-radius: 0.5rem;
 }
 
 .categories {
@@ -131,7 +132,16 @@
   padding: 0.5rem;
   border-radius: 0.5rem;
   font-size: 1.5rem;
+  width: 350px;
 }
+
+.summary {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 350px;
+  font-size: 1.5rem;
+}
+
 .correct-answer {
   background-color: var(--correct-answer);
 }
@@ -155,6 +165,10 @@
     height: 3rem;
   }
   #root {
-    height: 100vh;
+    min-height: 100vh;
+  }
+
+  .question {
+    margin-top: 3rem;
   }
 }
