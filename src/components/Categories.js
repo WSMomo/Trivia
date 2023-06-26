@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
-export default function Categories({ categoryUrl, onCategoryUrl }) {
+export default function Categories({ onCategoryUrl }) {
   const [categories, setCategories] = useState([]);
   useFetch(
     setCategories,

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Quiz from "./components/Quiz";
-import { useFetch } from "./hooks/useFetch";
 import Categories from "./components/Categories";
 function App() {
   const [categoryUrl, setCategoryUrl] = useState("");
