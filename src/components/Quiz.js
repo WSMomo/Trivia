@@ -32,6 +32,7 @@ export default function Quiz({ categoryUrl, setCategoryUrl }) {
       }
     }
     checkAnswer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userAnswer]);
 
   // al caricamento della pagina cerca le domande e le riposte e salvale in data

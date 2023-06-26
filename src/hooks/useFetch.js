@@ -7,5 +7,6 @@ export function useFetch(callback, url, name) {
       callback(data[name]);
     }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

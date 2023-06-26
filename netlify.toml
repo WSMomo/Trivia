@@ -1,7 +1,0 @@
-[build]
-  command = "CI= npm run build"
-  ignore = ["src/**/*.test.js", "src/**/*.spec.js"]
-  functions = "functions"
-  publish = "build"
-  # Ignora i warning come errori
-  environment = { CI = "false" }
