@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
+import Loader from "./Loader";
 export default function Categories({ onCategoryUrl, onCategory }) {
   const [categories, setCategories] = useState([]);
   useFetch(
@@ -29,7 +30,7 @@ export default function Categories({ onCategoryUrl, onCategory }) {
           })}
         </ul>
       ) : (
-        <p>Loading...</p>
+        <Loader />
       )}
     </div>
   );

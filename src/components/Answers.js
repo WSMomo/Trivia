@@ -5,6 +5,9 @@ export default function Answers({
   data,
   questionCounter,
   showAnswer,
+  correctAnswer,
+  answerClassname,
+  setAnswerClassname,
 }) {
   const answers = [
     he.decode(data[questionCounter].incorrect_answers[0]),
@@ -12,6 +15,18 @@ export default function Answers({
     he.decode(data[questionCounter].incorrect_answers[2]),
     he.decode(data[questionCounter].correct_answer),
   ];
+
+  function handleAnswer(answer) {
+    if (answer === correctAnswer) {
+      setAnswerClassname((index) =>
+        index === 3 ? "correct-answer" : "wrong-answer"
+      );
+    } else {
+      setAnswerClassname((index) =>
+        index !== 3 ? "wrong-answer" : "correct-answer"
+      );
+    }
+  }
 
   answers.sort();
   return (
@@ -22,6 +37,10 @@ export default function Answers({
             key={index}
             onAnswerClick={onAnswerClick}
             showAnswer={showAnswer}
+            correctAnswer={correctAnswer}
+            answerClassname={answerClassname}
+            setAnswerClassname={setAnswerClassname}
+            handleAnswer={handleAnswer}
           >
             {answer}
           </UserAnswer>

@@ -27,15 +27,16 @@
   justify-content: center;
 }
 
-.answers li {
+.answer-elem {
   cursor: pointer;
   height: 3rem;
   list-style: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--button-color);
   border-radius: 0.5rem;
+  background-color: var(--button-color);
+  padding: 1rem;
 }
 
 .answer-selected {
@@ -93,7 +94,6 @@
 
 .disabled {
   pointer-events: none;
-  opacity: 0.6;
 }
 
 .play-again-button {
@@ -115,9 +115,16 @@
 
 .section-title {
   text-align: center;
-  padding: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 0.5rem;
   color: var(--button-color);
   font-size: 2rem;
+}
+.section-subtitle {
+  text-align: center;
+  padding-bottom: 1rem;
+  color: var(--button-color);
+  font-size: 1.5rem;
 }
 .categories li {
   background-color: var(--button-color);
@@ -132,6 +139,26 @@
   border-radius: 0.5rem;
 }
 
+.difficulties {
+  display: grid;
+  grid-template-columns: repeat(1, 300px);
+  gap: 4px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.difficulties li {
+  background-color: var(--button-color);
+  cursor: pointer;
+  height: 5rem;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
 .result {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -149,11 +176,32 @@
 }
 
 .correct-answer {
-  background-color: var(--correct-answer);
+  color: var(--correct-answer);
+  border: 3px solid var(--correct-answer);
+  opacity: 1;
 }
 
 .wrong-answer {
-  background-color: var(--wrong-answer);
+  color: var(--wrong-answer);
+  border: 3px solid var(--wrong-answer);
+  opacity: 0.6;
+}
+
+.loading {
+  color: #d4b483;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.return-at-home-button {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  padding: 0.25rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #c1666b;
 }
 
 @media screen and (min-width: 768px) {
@@ -176,5 +224,13 @@
 
   .question {
     margin-top: 3rem;
+  }
+
+  .result {
+    width: fit-content;
+  }
+
+  .summary {
+    width: fit-content;
   }
 }

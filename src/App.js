@@ -1,41 +1,70 @@
 import { useEffect, useState } from "react";
 import Quiz from "./components/Quiz";
 import Categories from "./components/Categories";
+import Difficulty from "./components/Difficulty";
+
 function App() {
-  const [categoryUrl, setCategoryUrl] = useState("");
+  const [url, setUrl] = useState(
+    "https://opentdb.com/api.php?amount=10&type=multiple"
+  );
+  const [categoryIsDefined, setCategoryIsDefined] = useState(false);
+  const [difficultyIsDefined, setDifficultyIsDefined] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("");
 
   function handleCategory(name) {
     setSelectedCategory(name);
   }
 
-  function handleCategoryUrl(id) {
-    if (id === null) {
-      setCategoryUrl(`https://opentdb.com/api.php?amount=10&type=multiple`);
-      return;
+  function handleDifficulty(name) {
+    setSelectedDifficulty(name);
+  }
+
+  function handleCategoryUrl(categoryId) {
+    if (categoryId) {
+      setUrl(() => url + `&category=${categoryId}`);
     }
-    setCategoryUrl(
-      () => `https://opentdb.com/api.php?amount=10&category=${id}&type=multiple`
-    );
+    console.log(url);
+    setCategoryIsDefined(true);
+  }
+
+  function handleDifficultyUrl(difficultyType) {
+    if (difficultyType) {
+      setUrl(() => url + `&difficulty=${difficultyType}`);
+    }
+    setDifficultyIsDefined(true);
+    console.log(url);
   }
 
   useEffect(() => {
-    console.log(categoryUrl);
-  }, [categoryUrl]);
+    console.log(url);
+  }, [url]);
 
   return (
     <div className="App">
-      {categoryUrl ? (
-        <Quiz
-          categoryUrl={categoryUrl}
-          setCategoryUrl={setCategoryUrl}
-          selectedCategory={selectedCategory}
+      {difficultyIsDefined || (
+        <Difficulty
+          onDifficultyUrl={handleDifficultyUrl}
+          onDifficulty={handleDifficulty}
         />
-      ) : (
+      )}
+
+      {difficultyIsDefined && !categoryIsDefined && (
         <Categories
           onCategoryUrl={handleCategoryUrl}
-          categoryUrl={categoryUrl}
+          categoryUrl={url}
           onCategory={handleCategory}
+        />
+      )}
+
+      {categoryIsDefined && (
+        <Quiz
+          url={url}
+          setUrl={setUrl}
+          selectedCategory={selectedCategory}
+          selectedDifficulty={selectedDifficulty}
+          setDifficultyIsDefined={setDifficultyIsDefined}
+          setCategoryIsDefined={setCategoryIsDefined}
         />
       )}
     </div>
