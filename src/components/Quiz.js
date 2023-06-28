@@ -21,6 +21,7 @@ export default function Quiz({
   const [countCorrectAnswer, setCountCorrectAnswer] = useState(0);
   const [data, setData] = useState([]);
   const [answerClassname, setAnswerClassname] = useState("");
+  const [showResult, setShowResult] = useState(false);
   // quando l'utente clicca su una risposta setta la risposta utente e setta il showAnswer su true per visualizzarla
   function handleAnswerClick(selectedAnswer) {
     setCountAnswer(() => countAnswer + 1);
@@ -85,8 +86,16 @@ export default function Quiz({
             Next question
           </button>
         )}
+        {questionCounter >= 9 && showAnswer && (
+          <button
+            className="next-question-button"
+            onClick={() => setShowResult(true)}
+          >
+            Show result
+          </button>
+        )}
 
-        {countAnswer <= 9 ? (
+        {!showResult ? (
           <>
             <div className="question-number">
               {questionCounter + 1}/{data.length}
