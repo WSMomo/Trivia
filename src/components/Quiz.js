@@ -14,7 +14,7 @@ export default function Quiz({
 }) {
   const [userAnswer, setUserAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
-  const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
+  // const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [questionCounter, setQuestionCounter] = useState(0);
   const [countAnswer, setCountAnswer] = useState(0);
@@ -36,9 +36,9 @@ export default function Quiz({
     function checkAnswer() {
       if (userAnswer === correctAnswer) {
         setCountCorrectAnswer(() => countCorrectAnswer + 1);
-        setIsCorrectAnswer(true);
+        // setIsCorrectAnswer(true);
       } else {
-        setIsCorrectAnswer(false);
+        // setIsCorrectAnswer(false);
       }
     }
     checkAnswer();
