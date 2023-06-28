@@ -63,7 +63,8 @@
   width: 350px;
 }
 
-.next-question-button {
+.next-question-button,
+.show-result-button {
   cursor: pointer;
   position: absolute;
   top: -1px;
@@ -202,6 +203,7 @@
   border-radius: 4px;
   border: none;
   background-color: #c1666b;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {

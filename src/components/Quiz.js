@@ -86,9 +86,9 @@ export default function Quiz({
             Next question
           </button>
         )}
-        {questionCounter >= 9 && showAnswer && (
+        {questionCounter >= 9 && showAnswer && !showResult && (
           <button
-            className="next-question-button"
+            className="show-result-button"
             onClick={() => setShowResult(true)}
           >
             Show result
@@ -120,22 +120,6 @@ export default function Quiz({
                 <Loader />
               )}
             </div>
-
-            {/* <div
-              className={`result ${
-                !showAnswer
-                  ? "hide"
-                  : isCorrectAnswer
-                  ? "correct-answer"
-                  : "wrong-answer"
-              }`}
-            >
-              <p>Your answer is: {userAnswer}.</p>
-              <p>
-                The correct answer is {correctAnswer}.{" "}
-                {isCorrectAnswer ? "Good Job!" : ""}
-              </p>
-            </div> */}
           </>
         ) : (
           <>
