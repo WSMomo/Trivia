@@ -3,6 +3,12 @@ import Answers from "./Answers";
 import he from "he"; // trasforma simboli in html leggibile
 import { useFetch } from "../hooks/useFetch";
 import Loader from "./Loader";
+import Summary from "./Summary";
+import { QuestionNumber } from "./QuestionNumber";
+import { Question } from "./Question";
+import { ReturnAtHome } from "./ReturnAtHome";
+import { ShowResult } from "./ShowResult";
+import { NextQuestion } from "./NextQuestion";
 
 export default function Quiz({
   url,
@@ -14,7 +20,6 @@ export default function Quiz({
 }) {
   const [userAnswer, setUserAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
-  // const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [questionCounter, setQuestionCounter] = useState(0);
   const [countAnswer, setCountAnswer] = useState(0);
@@ -74,38 +79,27 @@ export default function Quiz({
     <div className="body">
       <h2 className="section-title">{selectedCategory || "Random Category"}</h2>
       <h3 className="section-subtitle">{selectedDifficulty}</h3>
-      <button className="return-at-home-button" onClick={handleReset}>
-        Return at home
-      </button>
+      <ReturnAtHome onReset={handleReset} />
       <div className="main">
-        {questionCounter < 9 && showAnswer && (
-          <button
-            className="next-question-button"
-            onClick={handleChangeQuestion}
-          >
-            Next question
-          </button>
-        )}
-        {questionCounter >= 9 && showAnswer && !showResult && (
-          <button
-            className="show-result-button"
-            onClick={() => setShowResult(true)}
-          >
-            Show result
-          </button>
-        )}
+        <NextQuestion
+          questionCounter={questionCounter}
+          showAnswer={showAnswer}
+          onChangeQuestion={handleChangeQuestion}
+        />
+        <ShowResult
+          questionCounter={questionCounter}
+          showAnswer={showAnswer}
+          showResult={showResult}
+          setShowResult={setShowResult}
+        />
 
         {!showResult ? (
           <>
-            <div className="question-number">
-              {questionCounter + 1}/{data.length}
-            </div>
+            <QuestionNumber data={data} questionCounter={questionCounter} />
             <div>
               {data.length > 0 ? (
                 <>
-                  <div className="question">
-                    {he.decode(data[questionCounter].question)}
-                  </div>
+                  <Question data={data} questionCounter={questionCounter} />
                   <Answers
                     onAnswerClick={handleAnswerClick}
                     data={data}
@@ -122,19 +116,10 @@ export default function Quiz({
             </div>
           </>
         ) : (
-          <>
-            <div
-              className={`summary ${
-                countCorrectAnswer >= 6 ? "correct-answer" : "wrong-answer"
-              }`}
-            >
-              You have successfully answered {countCorrectAnswer} questions
-              correctly.
-            </div>
-            <button className="play-again-button" onClick={handleReset}>
-              Play again
-            </button>
-          </>
+          <Summary
+            countCorrectAnswer={countCorrectAnswer}
+            onReset={handleReset}
+          />
         )}
       </div>
     </div>
