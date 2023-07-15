@@ -1,5 +1,5 @@
 export default function Difficulty({ onDifficultyUrl, onDifficulty }) {
-  const difficultyTypes = ["Easy", "Medium", "Hard", "Mixed"];
+  const difficultyTypes = ["Easy", "Medium", "Hard"];
   return (
     <div>
       <h2 className="section-title">Select the difficulty</h2>
