@@ -4,7 +4,7 @@ export default function Summary({ countCorrectAnswer, onReset }) {
     <>
       <div
         className={`summary ${
-          countCorrectAnswer >= 6 ? "correct-answer" : "wrong-answer"
+          countCorrectAnswer >= 6 ? "correct-answer" : "wrong-answer wrong"
         }`}
       >
         You have successfully answered {countCorrectAnswer} questions correctly.

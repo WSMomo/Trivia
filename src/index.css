@@ -1,7 +1,7 @@
 :root {
   --main-color: #4281a4;
-  --correct-answer: #48a9a6;
-  --wrong-answer: #c1666b;
+  --correct-answer: #166663;
+  --wrong-answer: #681d21;
   --decoration-color: #d4b483;
   --button-color: #e4dfda;
 }
@@ -180,12 +180,18 @@
   color: var(--correct-answer);
   border: 3px solid var(--correct-answer);
   opacity: 1;
+  background-color: var(--button-color);
 }
 
 .wrong-answer {
   color: var(--wrong-answer);
   border: 3px solid var(--wrong-answer);
   opacity: 0.6;
+  background-color: var(--button-color);
+}
+
+.wrong {
+  opacity: 1;
 }
 
 .loading {
@@ -202,7 +208,7 @@
   font-size: 1rem;
   border-radius: 4px;
   border: none;
-  background-color: #c1666b;
+  background-color: var(--button-color);
   cursor: pointer;
 }
 
